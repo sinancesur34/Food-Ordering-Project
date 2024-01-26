@@ -1,0 +1,43 @@
+﻿@model EntityLayer.Concrete.Yemek
+@{
+    ViewBag.Title = "AddYemek";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<br />
+<center><h2>Yemek Ekleme Sayfası</h2></center>
+@using (Html.BeginForm("AddYemek", "Yemek", FormMethod.Post))
+{
+    <br />
+    <center><h2>Yemek ekle</h2></center>
+    <div class="form-group">
+        <label>Yemek Adı</label>
+
+        @Html.TextBoxFor(x => x.YemekName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.YemekName)
+        <br /><br />
+        <label>Fiyat</label>
+        @Html.TextBoxFor(x => x.Fiyat, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Fiyat)
+
+        <br /><br />
+
+
+
+        <br /><br />
+
+
+        <br /><br />
+        <button id="kaydetButton">Kaydet</button>
+
+        <script>
+            var kaydetButton = document.getElementById("kaydetButton");
+            kaydetButton.style.backgroundColor = "#000000";
+            kaydetButton.style.color = "white";
+            kaydetButton.style.border = "none";
+            kaydetButton.style.padding = "10px 20px";
+            kaydetButton.style.borderRadius = "5px";
+        </script>
+    </div>
+    }
+

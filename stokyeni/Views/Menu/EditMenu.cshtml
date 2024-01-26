@@ -1,0 +1,40 @@
+﻿@model EntityLayer.Concrete.Menu
+@{
+    ViewBag.Title = "EditMenu";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<center><h2>Kategori Düzenleme Sayfası</h2></center>
+@using (Html.BeginForm("EditMenu", "Menu", FormMethod.Post))
+{
+    <div class="form-group" style="margin-left:20px">
+
+        @Html.Label("Tatlı ıd")
+        @Html.TextBoxFor(x => x.MenuID, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.MenuID)
+        <br /> <br />
+        @Html.Label("Tatlı Adı")
+        @Html.TextBoxFor(x => x.MenuName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.MenuName)
+        <br /><br />
+        @Html.Label("Fiyat")
+        @Html.TextBoxFor(x => x.Fiyat, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Fiyat)
+        <br /><br />
+        <button id="kaydetButton">Kaydet</button>
+
+        <script>
+            var kaydetButton = document.getElementById("kaydetButton");
+            kaydetButton.style.backgroundColor = "#000000";
+            kaydetButton.style.color = "white";
+            kaydetButton.style.border = "none";
+            kaydetButton.style.padding = "10px 20px";
+            kaydetButton.style.borderRadius = "5px";
+        </script>
+    </div>
+
+
+
+}

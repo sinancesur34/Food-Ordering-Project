@@ -1,0 +1,39 @@
+﻿@model EntityLayer.Concrete.Satis
+@{
+    ViewBag.Title = "DetailSatis";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+
+
+<center><h2>Sipariş Detay Sayfası</h2></center>
+@using (Html.BeginForm("DetailSatis", "Satis", FormMethod.Post))
+{
+    <div class="form-group" style="margin-left:20px">
+
+        @Html.Label("Yemek ")
+        @Html.DropDownListFor(x => x.YemekID, (List<SelectListItem>)ViewBag.vly, new
+        { @class = "form-control", disabled = "disabled" })
+        <br /><br />
+        @Html.Label("Menü ")
+        @Html.DropDownListFor(x => x.MenuID, (List<SelectListItem>)ViewBag.vlm, new
+   { @class = "form-control", disabled = "disabled" })
+        <br /><br />
+        @Html.Label("Tatli ")
+        @Html.DropDownListFor(x => x.TatliID, (List<SelectListItem>)ViewBag.vlt, new
+   { @class = "form-control", disabled = "disabled" })
+        <br /><br />
+        @Html.Label("Salata")
+        @Html.DropDownListFor(x => x.SalataID, (List<SelectListItem>)ViewBag.vlsa, new
+   { @class = "form-control", disabled = "disabled" })
+        <br /> <br />
+        @Html.Label("Satış Saati")
+        @Html.TextBoxFor(x => x.Tarih, new { @class = "form-control", disabled = "disabled" })
+        <br /><br />
+        @Html.Label("Toplam")
+        @Html.TextBoxFor(x => x.Toplam, new { @class = "form-control", disabled = "disabled" })
+        <br /><br />
+
+    </div>
+
+}

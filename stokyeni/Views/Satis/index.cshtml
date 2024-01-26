@@ -1,0 +1,57 @@
+﻿@using EntityLayer.Concrete
+@model List<Satis>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<br />
+<center><h2>Alınan Siparişler</h2></center>
+<br />
+<div>
+    <form method="post" action="/Satis/index">
+        <table class="table table-hover">
+            <tr>
+                <th>Sipariş Numarası</th>
+                @*<th>Yemek</th>
+        <th>Menu</th>
+        <th>Tatli</th>
+        <th>Salata</th>*@
+                <th>Tarih</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.SatisID</td>
+                    @*<td>@item.Yemek.YemekName</td>
+        <td>@item.Menu.MenuName</td>
+        <td>@item.Tatli.TatliName</td>
+        <td>@item.Salata.SalataName</td>*@
+                    <td>@item.Tarih</td>
+
+                    <td><a href="/Satis/DetailSatis/@item.SatisID" class="btn btn-info">Detay</a></td>
+                    <td><a href="/Satis/DeleteSatis/@item.SatisID" class="btn btn-danger"> Sil</a></td>
+                    <td><a href="/Satis/EditSatis/@item.SatisID" class="btn btn-success">Güncelle</a></td>
+                    <td>
+                        <a href="/Satis/EditSatis/@item.SatisID" class="btn btn-warning" onclick="playSound()">Hazır</a>
+                    </td>
+
+
+                </tr>
+            }
+        </table>
+
+       
+    </form>
+</div>
+
+
+<br />
+<a href="/Satis/AddSatis" style="margin-left:20px;" class="btn btn-info">Yeni Satış</a>
+

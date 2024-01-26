@@ -1,0 +1,41 @@
+﻿@model EntityLayer.Concrete.Tatli
+@{
+    ViewBag.Title = "EditTatli";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<center><h2>Tatlı Düzenleme Sayfası</h2></center>
+@using (Html.BeginForm("EditTatli", "Tatli", FormMethod.Post))
+{
+    <div class="form-group" style="margin-left:20px">
+
+        @Html.Label("Tatlı ıd")
+        @Html.TextBoxFor(x => x.TatliID, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.TatliID)
+        <br /> <br />
+        @Html.Label("Tatlı Adı")
+        @Html.TextBoxFor(x => x.TatliName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.TatliName)
+        <br /><br />
+        @Html.Label("Fiyat")
+        @Html.TextBoxFor(x => x.Fiyat, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Fiyat)
+        <br /><br />
+
+        <button id="kaydetButton">Kaydet</button>
+
+        <script>
+            var kaydetButton = document.getElementById("kaydetButton");
+            kaydetButton.style.backgroundColor = "#000000";
+            kaydetButton.style.color = "white";
+            kaydetButton.style.border = "none";
+            kaydetButton.style.padding = "10px 20px";
+            kaydetButton.style.borderRadius = "5px";
+        </script>
+    </div>
+
+
+
+}

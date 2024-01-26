@@ -1,0 +1,56 @@
+﻿@using EntityLayer.Concrete
+@model List<Salata>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<br />
+<center><h2> Salata Listesi</h2></center>
+<div><br />
+    <form method="post" action="/Salata/index">
+        <table class="table table-hover">
+            <tr>
+              
+                <th>SalataID</th>
+                <th>Salata Adı</th>
+                <th>Fiyat</th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>@item.SalataID</td>
+                    <td>@item.SalataName</td>
+                    <td>@item.Fiyat</td>
+
+                    <td><a href="/Salata/DeleteSalata/@item.SalataID" class="btn btn-danger"> sil</a></td>
+                    <td><a href="/Salata/EditSalata/@item.SalataID" class="btn btn-success"> güncelle</a></td>
+
+                </tr>
+            }
+        </table>
+
+    </form>
+</div>
+<a href="/Salata/AddSalata" class="btn btn-info">Ekle</a>
+
+@*<div class="modal" id="Modal1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h2 class="modal-title">satış</h2>
+
+            </div>
+            <form>
+
+                <div class="modal-body"></div>.
+            </form>
+        </div>
+    </div>
+</div>
+
+<br /><br /><br /><br /><br /><br /><br />*@

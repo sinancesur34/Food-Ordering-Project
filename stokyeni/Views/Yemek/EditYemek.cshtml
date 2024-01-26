@@ -1,0 +1,40 @@
+﻿@model EntityLayer.Concrete.Yemek
+@{
+    ViewBag.Title = "EditYemek";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<center><h2> Yemek DÜzenleme</h2></center>
+@using (Html.BeginForm("EditYemek", "Yemek", FormMethod.Post))
+{
+    <div class="form-group" style="margin-left:20px">
+
+        @Html.Label("Yemek ID")
+        @Html.TextBoxFor(x => x.YemekID, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.YemekID)
+        <br /> <br />
+        @Html.Label("Yemek Adı")
+        @Html.TextBoxFor(x => x.YemekName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.YemekName)
+        <br /><br />
+        @Html.Label("Fiyat")
+        @Html.TextBoxFor(x => x.Fiyat, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Fiyat)
+        <br /><br />
+        <button id="kaydetButton">Kaydet</button>
+
+        <script>
+            var kaydetButton = document.getElementById("kaydetButton");
+            kaydetButton.style.backgroundColor = "#000000";
+            kaydetButton.style.color = "white";
+            kaydetButton.style.border = "none";
+            kaydetButton.style.padding = "10px 20px";
+            kaydetButton.style.borderRadius = "5px";
+        </script>
+    </div>
+
+
+
+}
