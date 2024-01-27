@@ -36,17 +36,21 @@
         var selectedName;
 
         window.onload = function () {
-            setFiyat('txt1', 'txt2', 'txt3', document.getElementById('YemekID'));
-            setFiyat('txt4', 'txt5', 'txt6', document.getElementById('MenuID'));
-            setFiyat('txt7', 'txt8', 'txt9', document.getElementById('TatliID'));
-            setFiyat('txt10', 'txt11', 'txt12', document.getElementById('SalataID'));
+            setFiyat('txtYemek','txt1', 'txt2', 'txt3', document.getElementById('YemekID'));
+            setFiyat('txtMenu', 'txt4', 'txt5', 'txt6', document.getElementById('MenuID'));
+            setFiyat('txtTatli', 'txt7', 'txt8', 'txt9', document.getElementById('TatliID'));
+            setFiyat('txtSalata', 'txt10', 'txt11', 'txt12', document.getElementById('SalataID'));
         };
 
-        function setFiyat(txtId1, txtId2, txtId3, dropdown) {
+        function setFiyat(txtName, txtId1, txtId2, txtId3, dropdown) {
             var selected = dropdown.options[dropdown.selectedIndex].innerText.match(/\((\d+)[₺$€]?\)/);
+            var name = dropdown.options[dropdown.selectedIndex].innerText
             var fiyat = parseFloat(selected[1]) || 0;
             document.getElementById(txtId1).value = fiyat.toFixed(2) + "₺";
 
+            console.log(name.split('(')[0].trim());
+
+            document.getElementById(txtName).value = name.split('(')[0].trim();
             hesapla(txtId1, txtId2, txtId3)
         }
 
@@ -58,7 +62,7 @@
             document.getElementById('txt13').value = (parseInt(document.getElementById('txt3').value) || 0) + (parseInt(document.getElementById('txt6').value) || 0) + (parseInt(document.getElementById('txt9').value) || 0) + (parseInt(document.getElementById('txt12').value) || 0) + "₺";
         }
 
-        function sepeteEkle(type, adet, fiyat) {
+        function sepeteEkle(type, name, adet, fiyat) {
             var sepetTable = document.getElementById('sepetTablosu');
             var row = sepetTable.insertRow(-1);
             var cellType = row.insertCell(0);
@@ -67,7 +71,7 @@
             var cellFiyat = row.insertCell(3);
 
             cellType.innerHTML = type;
-            cellAdi.innerHTML = selectedName;
+            cellAdi.innerHTML = name;
             cellAdet.innerHTML = adet;
             cellFiyat.innerHTML = fiyat;
         }
@@ -90,7 +94,7 @@
         <div class="form-group">
             @Html.Label("Yemek ")
             @Html.DropDownListFor(x => x.YemekID, (List<SelectListItem>)@ViewBag.vly, new
-             { @class = "form-control", @onchange = "setFiyat('txt1', 'txt2', 'txt3', this);" })
+             { @class = "form-control", @onchange = "setFiyat('txtYemek','txt1', 'txt2', 'txt3', this);" })
             <br /><br />
 
             @Html.Label("Fiyat ")
@@ -101,14 +105,15 @@
             &nbsp; &nbsp;
             @Html.Label("Toplam ")
             <input type="text" disabled id="txt3" />
+            <input type="hidden" disabled id="txtYemek" />
             &nbsp; &nbsp;
-            <button type="button" id="addYemek" onclick="sepeteEkle('Yemek', document.getElementById('txt2').value, document.getElementById('txt3').value)">Ekle</button>
+            <button type="button" id="addYemek" onclick="sepeteEkle('Yemek', document.getElementById('txtYemek').value,document.getElementById('txt2').value, document.getElementById('txt3').value)">Ekle</button>
             <br>  <br>
             <br>  <br>
 
             @Html.Label("Menü ")
             @Html.DropDownListFor(x => x.MenuID, (List<SelectListItem>)@ViewBag.vlm, new
-             { @class = "form-control", @onchange = "setFiyat('txt4', 'txt5', 'txt6', this);" })
+             { @class = "form-control", @onchange = "setFiyat('txtMenu','txt4', 'txt5', 'txt6', this);" })
             <br /><br />
 
             @Html.Label("Fiyat ")
@@ -119,14 +124,15 @@
             &nbsp; &nbsp;
             @Html.Label("Toplam ")
             <input type="text" disabled id="txt6" />
+            <input type="hidden" disabled id="txtMenu" />
             &nbsp; &nbsp;
-            <button type="button" id="addMenu" onclick="sepeteEkle('Menü', document.getElementById('txt5').value, document.getElementById('txt6').value)">Ekle</button>
+            <button type="button" id="addMenu" onclick="sepeteEkle('Menü',document.getElementById('txtMenu').value, document.getElementById('txt5').value, document.getElementById('txt6').value)">Ekle</button>
             <br>  <br>
             <br>  <br>
 
             @Html.Label("Tatli ")
             @Html.DropDownListFor(x => x.TatliID, (List<SelectListItem>)@ViewBag.vlt, new
-             { @class = "form-control", @onchange = "setFiyat('txt7', 'txt8', 'txt9', this);" })
+             { @class = "form-control", @onchange = "setFiyat('txtTatli','txt7', 'txt8', 'txt9', this);" })
             <br /><br />
 
             @Html.Label("Fiyat ")
@@ -137,14 +143,15 @@
             &nbsp; &nbsp;
             @Html.Label("Toplam ")
             <input type="text" disabled id="txt9" />
+            <input type="hidden" disabled id="txtTatli" />
             &nbsp; &nbsp;
-            <button type="button" id="addTatli" onclick="sepeteEkle('Tatlı', document.getElementById('txt8').value, document.getElementById('txt9').value)">Ekle</button>
+            <button type="button" id="addTatli" onclick="sepeteEkle('Tatlı', document.getElementById('txtTatli').value,document.getElementById('txt8').value, document.getElementById('txt9').value)">Ekle</button>
             <br>  <br>
             <br>  <br>
 
             @Html.Label("Salata")
             @Html.DropDownListFor(x => x.SalataID, (List<SelectListItem>)@ViewBag.vlsa, new
-            { @class = "form-control", @onchange = "setFiyat('txt10', 'txt11', 'txt12', this);" })
+            { @class = "form-control", @onchange = "setFiyat('txtSalata','txt10', 'txt11', 'txt12', this);" })
             <br /><br />
             @Html.Label("Fiyat ")
             <input type="text" disabled placeholder="fiyat bilgisi " id="txt10" />
@@ -154,8 +161,9 @@
             &nbsp; &nbsp;
             @Html.Label("Toplam ")
             <input type="text" disabled id="txt12" />
+            <input type="hidden" disabled id="txtSalata" />
             &nbsp; &nbsp;
-            <button type="button" id="addSalata" onclick="sepeteEkle('Salata', document.getElementById('txt11').value, document.getElementById('txt12').value)">Ekle</button>
+            <button type="button" id="addSalata" onclick="sepeteEkle('Salata', document.getElementById('txtSalata').value,document.getElementById('txt11').value, document.getElementById('txt12').value)">Ekle</button>
             <br>  <br>
 
             @Html.Label("Toplam")
