@@ -6,11 +6,11 @@
 }
 
 <br />
-<center><h2>Satis Ekleme Sayfası</h2></center>
+<center><h2>Sipariş Sayfası</h2></center>
 @using (Html.BeginForm("AddSatis", "Satis", FormMethod.Post))
 {
     <br />
-    <center><h2>Satis ekle</h2></center>
+    <center><h2>Sipariş</h2></center>
     <div class="form-group">
         @Html.Label("Yemek ")
         @Html.DropDownListFor(x => x.YemekID, (List<SelectListItem>)@ViewBag.vly, new
@@ -18,13 +18,12 @@
         <br /><br />
 
         @Html.Label("Fiyat ")
-        <input type="text" disabled placeholder="fiyat bilgisi " id="txt1"/>
+        <input type="text" disabled placeholder="fiyat bilgisi " id="txt1" />
         &nbsp; &nbsp;
-        @*@Html.LabelFor(x => x.YemekAdet)*@
+        @Html.Label("Adet ")
         <input type="number" placeholder="Adet girin" id="txt2" oninput="hesapla('txt1', 'txt2', 'txt3');" />
         &nbsp; &nbsp;
-        @*@Html.LabelFor(x => x.MenuAdet)*@
-        @*toplam*@
+        @Html.Label("Toplam ")
         <input type="text" disabled id="txt3" />
         <br>  <br>
         <br>  <br>
@@ -34,15 +33,14 @@
          { @class = "form-control", @onchange = "setFiyat('txt4', 'txt5', 'txt6', this);" })
         <br /><br />
 
-        @Html.Label("fiyat gir ")
-        <input type="text" placeholder="fiyat girin " id="txt4"/>
+        @Html.Label("fiyat ")
+        <input type="text" disabled placeholder="fiyat girin " id="txt4" />
         &nbsp; &nbsp;
-        @*@Html.LabelFor(x => x.YemekAdet)*@
+        @Html.Label("Adet ")
         <input type="number" placeholder="Adet girin" id="txt5" oninput="hesapla('txt4', 'txt5', 'txt6');" />
         &nbsp; &nbsp;
-        @*@Html.LabelFor(x => x.MenuAdet)*@
-        @*toplam*@
-        <input type="text" id="txt6" />
+        @Html.Label("Toplam ")
+        <input type="text" disabled id="txt6" />
         <br>  <br>
         <br>  <br>
 
@@ -52,14 +50,13 @@
         <br /><br />
 
         @Html.Label("fiyat gir ")
-        <input type="text" placeholder="fiyat girin " id="txt7"/>
+        <input type="text" disabled placeholder="fiyat girin " id="txt7" />
         &nbsp; &nbsp;
-        @*@Html.LabelFor(x => x.YemekAdet)*@
+        @Html.Label("Adet ")
         <input type="number" placeholder="Adet girin" id="txt8" oninput="hesapla('txt7', 'txt8', 'txt9');" />
         &nbsp; &nbsp;
-        @*@Html.LabelFor(x => x.MenuAdet)*@
-        @*toplam*@
-        <input type="text" id="txt9" />
+        @Html.Label("Toplam ")
+        <input type="text" disabled id="txt9" />
         <br>  <br>
         <br>  <br>
 
@@ -68,18 +65,17 @@
         { @class = "form-control", @onchange = "setFiyat('txt10', 'txt11', 'txt12', this);" })
         <br /><br />
         @Html.Label("fiyat gir ")
-        <input type="text" placeholder="fiyat girin " id="txt10"/>
+        <input type="text" disabled placeholder="fiyat girin " id="txt10" />
         &nbsp; &nbsp;
-        @*@Html.LabelFor(x => x.YemekAdet)*@
+        @Html.Label("Adet ")
         <input type="number" placeholder="Adet girin" id="txt11" oninput="hesapla('txt10', 'txt11', 'txt12');" />
         &nbsp; &nbsp;
-        @*@Html.LabelFor(x => x.MenuAdet)*@
-        @*toplam*@
-        <input type="text" id="txt12" />
+        @Html.Label("Toplam ")
+        <input type="text" disabled id="txt12" />
         <br>  <br>
 
         @Html.Label("Toplam")
-        <input type="text" id="txt13" />
+        <input type="text" disabled id="txt13" />
         <br /><br />
 
         <br /><br />
@@ -96,7 +92,7 @@
 
             function setFiyat(txtId1, txtId2, txtId3, dropdown) {
                 var fiyat = parseFloat(dropdown.options[dropdown.selectedIndex].innerText.match(/\((\d+)[₺$€]?\)/)[1]) || 0;
-                document.getElementById(txtId1).value = fiyat.toFixed(2);
+                document.getElementById(txtId1).value = fiyat.toFixed(2) + "₺";
 
                 hesapla(txtId1, txtId2, txtId3)
             }
@@ -105,8 +101,8 @@
                 var fiyatDeger = parseFloat(document.getElementById(fiyat).value) || 0;
                 var adetDeger = parseInt(document.getElementById(adet).value) || 0;
                 var toplam = fiyatDeger * adetDeger;
-                document.getElementById(toplamAlanId).value = toplam.toFixed(2);
-                document.getElementById('txt13').value = (parseInt(document.getElementById('txt3').value) || 0) + (parseInt(document.getElementById('txt6').value) || 0) + (parseInt(document.getElementById('txt9').value) || 0) + (parseInt(document.getElementById('txt12').value) || 0)
+                document.getElementById(toplamAlanId).value = toplam.toFixed(2) + "₺";
+                document.getElementById('txt13').value = (parseInt(document.getElementById('txt3').value) || 0) + (parseInt(document.getElementById('txt6').value) || 0) + (parseInt(document.getElementById('txt9').value) || 0) + (parseInt(document.getElementById('txt12').value) || 0) + "₺";
             }
 
             var kaydetButton = document.getElementById("kaydetButton");
