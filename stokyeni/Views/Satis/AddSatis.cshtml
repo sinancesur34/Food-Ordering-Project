@@ -9,108 +9,175 @@
 <center><h2>Sipariş Sayfası</h2></center>
 @using (Html.BeginForm("AddSatis", "Satis", FormMethod.Post))
 {
+    <style>
+        .flex-container { /*for class*/
+            display: flex;
+        }
+
+        #sepetListesi { /*for id*/
+            flex: 1;
+        }
+
+        #sepetTablosu {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        #sepetTablosu th, #sepetTablosu td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+    </style>
+
+    <script>
+        var selectedName;
+
+        window.onload = function () {
+            setFiyat('txt1', 'txt2', 'txt3', document.getElementById('YemekID'));
+            setFiyat('txt4', 'txt5', 'txt6', document.getElementById('MenuID'));
+            setFiyat('txt7', 'txt8', 'txt9', document.getElementById('TatliID'));
+            setFiyat('txt10', 'txt11', 'txt12', document.getElementById('SalataID'));
+        };
+
+        function setFiyat(txtId1, txtId2, txtId3, dropdown) {
+            var selected = dropdown.options[dropdown.selectedIndex].innerText.match(/\((\d+)[₺$€]?\)/);
+            var fiyat = parseFloat(selected[1]) || 0;
+            document.getElementById(txtId1).value = fiyat.toFixed(2) + "₺";
+
+            hesapla(txtId1, txtId2, txtId3)
+        }
+
+        function hesapla(fiyat, adet, toplamAlanId) {
+            var fiyatDeger = parseFloat(document.getElementById(fiyat).value) || 0;
+            var adetDeger = parseInt(document.getElementById(adet).value) || 0;
+            var toplam = fiyatDeger * adetDeger;
+            document.getElementById(toplamAlanId).value = toplam.toFixed(2) + "₺";
+            document.getElementById('txt13').value = (parseInt(document.getElementById('txt3').value) || 0) + (parseInt(document.getElementById('txt6').value) || 0) + (parseInt(document.getElementById('txt9').value) || 0) + (parseInt(document.getElementById('txt12').value) || 0) + "₺";
+        }
+
+        function sepeteEkle(type, adet, fiyat) {
+            var sepetTable = document.getElementById('sepetTablosu');
+            var row = sepetTable.insertRow(-1);
+            var cellType = row.insertCell(0);
+            var cellAdi = row.insertCell(1);
+            var cellAdet = row.insertCell(2);
+            var cellFiyat = row.insertCell(3);
+
+            cellType.innerHTML = type;
+            cellAdi.innerHTML = selectedName;
+            cellAdet.innerHTML = adet;
+            cellFiyat.innerHTML = fiyat;
+        }
+
+        function kaydet() {
+            alert('Sipariş başarıyla kaydedildi!');
+        }
+
+        var kaydetButton = document.getElementById("kaydetButton");
+        kaydetButton.style.backgroundColor = "#000000";
+        kaydetButton.style.color = "white";
+        kaydetButton.style.border = "none";
+        kaydetButton.style.padding = "10px 20px";
+        kaydetButton.style.borderRadius = "5px";
+    </script>
+
     <br />
     <center><h2>Sipariş</h2></center>
-    <div class="form-group">
-        @Html.Label("Yemek ")
-        @Html.DropDownListFor(x => x.YemekID, (List<SelectListItem>)@ViewBag.vly, new
-         { @class = "form-control", @onchange = "setFiyat('txt1', 'txt2', 'txt3', this);" })
-        <br /><br />
+    <div id="main-div" class="flex-container">
+        <div class="form-group">
+            @Html.Label("Yemek ")
+            @Html.DropDownListFor(x => x.YemekID, (List<SelectListItem>)@ViewBag.vly, new
+             { @class = "form-control", @onchange = "setFiyat('txt1', 'txt2', 'txt3', this);" })
+            <br /><br />
 
-        @Html.Label("Fiyat ")
-        <input type="text" disabled placeholder="fiyat bilgisi " id="txt1" />
-        &nbsp; &nbsp;
-        @Html.Label("Adet ")
-        <input type="number" placeholder="Adet girin" id="txt2" oninput="hesapla('txt1', 'txt2', 'txt3');" />
-        &nbsp; &nbsp;
-        @Html.Label("Toplam ")
-        <input type="text" disabled id="txt3" />
-        <br>  <br>
-        <br>  <br>
+            @Html.Label("Fiyat ")
+            <input type="text" disabled placeholder="fiyat bilgisi " id="txt1" />
+            &nbsp; &nbsp;
+            @Html.Label("Adet ")
+            <input type="number" placeholder="Adet girin" id="txt2" oninput="hesapla('txt1', 'txt2', 'txt3');" />
+            &nbsp; &nbsp;
+            @Html.Label("Toplam ")
+            <input type="text" disabled id="txt3" />
+            &nbsp; &nbsp;
+            <button type="button" id="addYemek" onclick="sepeteEkle('Yemek', document.getElementById('txt2').value, document.getElementById('txt3').value)">Ekle</button>
+            <br>  <br>
+            <br>  <br>
 
-        @Html.Label("Menü ")
-        @Html.DropDownListFor(x => x.MenuID, (List<SelectListItem>)@ViewBag.vlm, new
-         { @class = "form-control", @onchange = "setFiyat('txt4', 'txt5', 'txt6', this);" })
-        <br /><br />
+            @Html.Label("Menü ")
+            @Html.DropDownListFor(x => x.MenuID, (List<SelectListItem>)@ViewBag.vlm, new
+             { @class = "form-control", @onchange = "setFiyat('txt4', 'txt5', 'txt6', this);" })
+            <br /><br />
 
-        @Html.Label("fiyat ")
-        <input type="text" disabled placeholder="fiyat girin " id="txt4" />
-        &nbsp; &nbsp;
-        @Html.Label("Adet ")
-        <input type="number" placeholder="Adet girin" id="txt5" oninput="hesapla('txt4', 'txt5', 'txt6');" />
-        &nbsp; &nbsp;
-        @Html.Label("Toplam ")
-        <input type="text" disabled id="txt6" />
-        <br>  <br>
-        <br>  <br>
+            @Html.Label("Fiyat ")
+            <input type="text" disabled placeholder="fiyat bilgisi " id="txt4" />
+            &nbsp; &nbsp;
+            @Html.Label("Adet ")
+            <input type="number" placeholder="Adet girin" id="txt5" oninput="hesapla('txt4', 'txt5', 'txt6');" />
+            &nbsp; &nbsp;
+            @Html.Label("Toplam ")
+            <input type="text" disabled id="txt6" />
+            &nbsp; &nbsp;
+            <button type="button" id="addMenu" onclick="sepeteEkle('Menü', document.getElementById('txt5').value, document.getElementById('txt6').value)">Ekle</button>
+            <br>  <br>
+            <br>  <br>
 
-        @Html.Label("Tatli ")
-        @Html.DropDownListFor(x => x.TatliID, (List<SelectListItem>)@ViewBag.vlt, new
-         { @class = "form-control", @onchange = "setFiyat('txt7', 'txt8', 'txt9', this);" })
-        <br /><br />
+            @Html.Label("Tatli ")
+            @Html.DropDownListFor(x => x.TatliID, (List<SelectListItem>)@ViewBag.vlt, new
+             { @class = "form-control", @onchange = "setFiyat('txt7', 'txt8', 'txt9', this);" })
+            <br /><br />
 
-        @Html.Label("fiyat gir ")
-        <input type="text" disabled placeholder="fiyat girin " id="txt7" />
-        &nbsp; &nbsp;
-        @Html.Label("Adet ")
-        <input type="number" placeholder="Adet girin" id="txt8" oninput="hesapla('txt7', 'txt8', 'txt9');" />
-        &nbsp; &nbsp;
-        @Html.Label("Toplam ")
-        <input type="text" disabled id="txt9" />
-        <br>  <br>
-        <br>  <br>
+            @Html.Label("Fiyat ")
+            <input type="text" disabled placeholder="fiyat bilgisi " id="txt7" />
+            &nbsp; &nbsp;
+            @Html.Label("Adet ")
+            <input type="number" placeholder="Adet girin" id="txt8" oninput="hesapla('txt7', 'txt8', 'txt9');" />
+            &nbsp; &nbsp;
+            @Html.Label("Toplam ")
+            <input type="text" disabled id="txt9" />
+            &nbsp; &nbsp;
+            <button type="button" id="addTatli" onclick="sepeteEkle('Tatlı', document.getElementById('txt8').value, document.getElementById('txt9').value)">Ekle</button>
+            <br>  <br>
+            <br>  <br>
 
-        @Html.Label("Salata")
-        @Html.DropDownListFor(x => x.SalataID, (List<SelectListItem>)@ViewBag.vlsa, new
-        { @class = "form-control", @onchange = "setFiyat('txt10', 'txt11', 'txt12', this);" })
-        <br /><br />
-        @Html.Label("fiyat gir ")
-        <input type="text" disabled placeholder="fiyat girin " id="txt10" />
-        &nbsp; &nbsp;
-        @Html.Label("Adet ")
-        <input type="number" placeholder="Adet girin" id="txt11" oninput="hesapla('txt10', 'txt11', 'txt12');" />
-        &nbsp; &nbsp;
-        @Html.Label("Toplam ")
-        <input type="text" disabled id="txt12" />
-        <br>  <br>
+            @Html.Label("Salata")
+            @Html.DropDownListFor(x => x.SalataID, (List<SelectListItem>)@ViewBag.vlsa, new
+            { @class = "form-control", @onchange = "setFiyat('txt10', 'txt11', 'txt12', this);" })
+            <br /><br />
+            @Html.Label("Fiyat ")
+            <input type="text" disabled placeholder="fiyat bilgisi " id="txt10" />
+            &nbsp; &nbsp;
+            @Html.Label("Adet ")
+            <input type="number" placeholder="Adet girin" id="txt11" oninput="hesapla('txt10', 'txt11', 'txt12');" />
+            &nbsp; &nbsp;
+            @Html.Label("Toplam ")
+            <input type="text" disabled id="txt12" />
+            &nbsp; &nbsp;
+            <button type="button" id="addSalata" onclick="sepeteEkle('Salata', document.getElementById('txt11').value, document.getElementById('txt12').value)">Ekle</button>
+            <br>  <br>
 
-        @Html.Label("Toplam")
-        <input type="text" disabled id="txt13" />
-        <br /><br />
+            @Html.Label("Toplam")
+            <input type="text" disabled id="txt13" />
+            <br /><br />
 
-        <br /><br />
-        <button type="button" id="kaydetButton" onclick="kaydet()">Kaydet</button>
-
-
-        <script>
-            window.onload = function () {
-                setFiyat('txt1', 'txt2', 'txt3', document.getElementById('YemekID'));
-                setFiyat('txt4', 'txt5', 'txt6', document.getElementById('MenuID'));
-                setFiyat('txt7', 'txt8', 'txt9', document.getElementById('TatliID'));
-                setFiyat('txt10', 'txt11', 'txt12', document.getElementById('SalataID'));
-            };
-
-            function setFiyat(txtId1, txtId2, txtId3, dropdown) {
-                var fiyat = parseFloat(dropdown.options[dropdown.selectedIndex].innerText.match(/\((\d+)[₺$€]?\)/)[1]) || 0;
-                document.getElementById(txtId1).value = fiyat.toFixed(2) + "₺";
-
-                hesapla(txtId1, txtId2, txtId3)
-            }
-
-            function hesapla(fiyat, adet, toplamAlanId) {
-                var fiyatDeger = parseFloat(document.getElementById(fiyat).value) || 0;
-                var adetDeger = parseInt(document.getElementById(adet).value) || 0;
-                var toplam = fiyatDeger * adetDeger;
-                document.getElementById(toplamAlanId).value = toplam.toFixed(2) + "₺";
-                document.getElementById('txt13').value = (parseInt(document.getElementById('txt3').value) || 0) + (parseInt(document.getElementById('txt6').value) || 0) + (parseInt(document.getElementById('txt9').value) || 0) + (parseInt(document.getElementById('txt12').value) || 0) + "₺";
-            }
-
-            var kaydetButton = document.getElementById("kaydetButton");
-            kaydetButton.style.backgroundColor = "#000000";
-            kaydetButton.style.color = "white";
-            kaydetButton.style.border = "none";
-            kaydetButton.style.padding = "10px 20px";
-            kaydetButton.style.borderRadius = "5px";
-        </script>
+            <br /><br />
+            <button type="button" id="kaydetButton" onclick="kaydet()">Kaydet</button>
+        </div>
+        <div id="sepetListesi" class="bg-blue">
+            <h3>Sepet</h3>
+            <table id="sepetTablosu">
+                <thead>
+                    <tr>
+                        <th>Ürün Çeşiti</th>
+                        <th>Adı</th>
+                        <th>Adet</th>
+                        <th>Fiyat</th>
+                    </tr>
+                </thead>
+                <tbody id="yemekListesi"></tbody>
+            </table>
+        </div>
     </div>
 }
