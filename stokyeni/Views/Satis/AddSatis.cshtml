@@ -14,11 +14,11 @@
     <div class="form-group">
         @Html.Label("Yemek ")
         @Html.DropDownListFor(x => x.YemekID, (List<SelectListItem>)@ViewBag.vly, new
-         { @class = "form-control" })
+         { @class = "form-control", @onchange = "setFiyat('txt1', this);" })
         <br /><br />
 
         @Html.Label("fiyat gir ")
-        <input type="text" placeholder="fiyat girin " id="txt1" onkeyup="hesapla('txt1', 'txt2', 'txt3');" />
+        <input type="text" placeholder="fiyat girin " id="txt1" />
         &nbsp; &nbsp;
         @*@Html.LabelFor(x => x.YemekAdet)*@
         <input type="number" placeholder="Adet girin" id="txt2" onkeyup="hesapla('txt1', 'txt2', 'txt3');" />
@@ -31,7 +31,7 @@
 
         @Html.Label("Menü ")
         @Html.DropDownListFor(x => x.MenuID, (List<SelectListItem>)@ViewBag.vlm, new
-         { @class = "form-control" })
+         { @class = "form-control", @onchange = "setFiyat('txt4', this);" })
         <br /><br />
 
         @Html.Label("fiyat gir ")
@@ -48,7 +48,7 @@
 
         @Html.Label("Tatli ")
         @Html.DropDownListFor(x => x.TatliID, (List<SelectListItem>)@ViewBag.vlt, new
-         { @class = "form-control" })
+         { @class = "form-control", @onchange = "setFiyat('txt7', this);" })
         <br /><br />
 
         @Html.Label("fiyat gir ")
@@ -87,16 +87,18 @@
 
 
         <script>
+            function setFiyat(txtId, dropdown) {
+                var fiyat = parseFloat(dropdown.options[dropdown.selectedIndex].innerText.match(/\((\d+)[₺$€]?\)/)[1]) || 0;
+                document.getElementById(txtId).value = fiyat.toFixed(2);
+            }
+
             function hesapla(fiyat, adet, toplamAlanId) {
                 var fiyatDeger = parseFloat(document.getElementById(fiyat).value) || 0;
                 var adetDeger = parseInt(document.getElementById(adet).value) || 0;
                 var toplam = fiyatDeger * adetDeger;
                 document.getElementById(toplamAlanId).value = toplam.toFixed(2);
-                document.getElementById('txt13').value = (parseInt(document.getElementById('txt3').value) || 0) + (parseInt(document.getElementById('txt6').value) || 0) + (parseInt(document.getElementById('txt9').value) || 0) + (parseInt(document.getElementById('txt12').value) || 0) 
+                document.getElementById('txt13').value = (parseInt(document.getElementById('txt3').value) || 0) + (parseInt(document.getElementById('txt6').value) || 0) + (parseInt(document.getElementById('txt9').value) || 0) + (parseInt(document.getElementById('txt12').value) || 0)
             }
-        </script>
-
-        <script>
 
             var kaydetButton = document.getElementById("kaydetButton");
             kaydetButton.style.backgroundColor = "#000000";

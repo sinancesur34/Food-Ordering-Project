@@ -47,7 +47,7 @@ namespace tekrar_100ders.Controllers
             List<SelectListItem> valueTatli = (from x in tm.GetList()
                                                select new SelectListItem
                                                {
-                                                   Text = x.TatliName + "  " + x.Fiyat,
+                                                   Text = x.TatliName + "  (" + x.Fiyat + "₺)",
                                                    Value = x.TatliID.ToString()
 
                                                }
@@ -58,7 +58,7 @@ namespace tekrar_100ders.Controllers
             List<SelectListItem> valueYemek = (from x in ym.GetList()
                                                select new SelectListItem
                                                {
-                                                   Text = x.YemekName + " " + x.Fiyat,
+                                                   Text = x.YemekName + "  (" + x.Fiyat + "₺)",
                                                    Value = x.YemekID.ToString()
 
                                                }
@@ -68,7 +68,7 @@ namespace tekrar_100ders.Controllers
             List<SelectListItem> valueMenu = (from x in mm.GetList()
                                                select new SelectListItem
                                                {
-                                                   Text = x.MenuName + " " + x.Fiyat,
+                                                   Text = x.MenuName + "  (" + x.Fiyat + "₺)",
                                                    Value = x.MenuID.ToString()
 
                                                }
@@ -78,7 +78,7 @@ namespace tekrar_100ders.Controllers
             List<SelectListItem> valueSalata = (from x in sam.GetList()
                                                select new SelectListItem
                                                {
-                                                   Text = x.SalataName+" "+x.Fiyat,
+                                                   Text = x.SalataName + "  (" + x.Fiyat + "₺)",
                                                    Value = x.SalataID.ToString()
 
                                                }
