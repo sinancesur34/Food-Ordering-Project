@@ -16,6 +16,9 @@
 
         #sepetListesi { /*for id*/
             flex: 1;
+            margin-left: 5px;
+            background-color: #2A61ED;
+            color: papayawhip;
         }
 
         #sepetTablosu {
@@ -25,9 +28,10 @@
         }
 
         #sepetTablosu th, #sepetTablosu td {
-            border: 1px solid #ddd;
+            border: 2px solid papayawhip;
             padding: 8px;
             text-align: left;
+            color: papayawhip;
         }
 
     </style>
@@ -173,7 +177,7 @@
             <br /><br />
             <button type="button" id="kaydetButton" onclick="kaydet()">Kaydet</button>
         </div>
-        <div id="sepetListesi" class="bg-blue">
+        <div id="sepetListesi" class="">
             <h3>Sepet</h3>
             <table id="sepetTablosu">
                 <thead>
