@@ -14,31 +14,31 @@
     <div class="form-group">
         @Html.Label("Yemek ")
         @Html.DropDownListFor(x => x.YemekID, (List<SelectListItem>)@ViewBag.vly, new
-         { @class = "form-control", @onchange = "setFiyat('txt1', this);" })
+         { @class = "form-control", @onchange = "setFiyat('txt1', 'txt2', 'txt3', this);" })
         <br /><br />
 
-        @Html.Label("fiyat gir ")
-        <input type="text" placeholder="fiyat girin " id="txt1" />
+        @Html.Label("Fiyat ")
+        <input type="text" disabled placeholder="fiyat bilgisi " id="txt1"/>
         &nbsp; &nbsp;
         @*@Html.LabelFor(x => x.YemekAdet)*@
-        <input type="number" placeholder="Adet girin" id="txt2" onkeyup="hesapla('txt1', 'txt2', 'txt3');" />
+        <input type="number" placeholder="Adet girin" id="txt2" oninput="hesapla('txt1', 'txt2', 'txt3');" />
         &nbsp; &nbsp;
         @*@Html.LabelFor(x => x.MenuAdet)*@
         @*toplam*@
-        <input type="text" id="txt3" />
+        <input type="text" disabled id="txt3" />
         <br>  <br>
         <br>  <br>
 
         @Html.Label("Menü ")
         @Html.DropDownListFor(x => x.MenuID, (List<SelectListItem>)@ViewBag.vlm, new
-         { @class = "form-control", @onchange = "setFiyat('txt4', this);" })
+         { @class = "form-control", @onchange = "setFiyat('txt4', 'txt5', 'txt6', this);" })
         <br /><br />
 
         @Html.Label("fiyat gir ")
-        <input type="text" placeholder="fiyat girin " id="txt4" onkeyup="hesapla('txt4', 'txt5', 'txt6');" />
+        <input type="text" placeholder="fiyat girin " id="txt4"/>
         &nbsp; &nbsp;
         @*@Html.LabelFor(x => x.YemekAdet)*@
-        <input type="number" placeholder="Adet girin" id="txt5" onkeyup="hesapla('txt4', 'txt5', 'txt6');" />
+        <input type="number" placeholder="Adet girin" id="txt5" oninput="hesapla('txt4', 'txt5', 'txt6');" />
         &nbsp; &nbsp;
         @*@Html.LabelFor(x => x.MenuAdet)*@
         @*toplam*@
@@ -48,14 +48,14 @@
 
         @Html.Label("Tatli ")
         @Html.DropDownListFor(x => x.TatliID, (List<SelectListItem>)@ViewBag.vlt, new
-         { @class = "form-control", @onchange = "setFiyat('txt7', this);" })
+         { @class = "form-control", @onchange = "setFiyat('txt7', 'txt8', 'txt9', this);" })
         <br /><br />
 
         @Html.Label("fiyat gir ")
-        <input type="text" placeholder="fiyat girin " id="txt7" onkeyup="hesapla('txt7', 'txt8', 'txt9');" />
+        <input type="text" placeholder="fiyat girin " id="txt7"/>
         &nbsp; &nbsp;
         @*@Html.LabelFor(x => x.YemekAdet)*@
-        <input type="number" placeholder="Adet girin" id="txt8" onkeyup="hesapla('txt7', 'txt8', 'txt9');" />
+        <input type="number" placeholder="Adet girin" id="txt8" oninput="hesapla('txt7', 'txt8', 'txt9');" />
         &nbsp; &nbsp;
         @*@Html.LabelFor(x => x.MenuAdet)*@
         @*toplam*@
@@ -65,13 +65,13 @@
 
         @Html.Label("Salata")
         @Html.DropDownListFor(x => x.SalataID, (List<SelectListItem>)@ViewBag.vlsa, new
-     { @class = "form-control" })
+        { @class = "form-control", @onchange = "setFiyat('txt10', 'txt11', 'txt12', this);" })
         <br /><br />
         @Html.Label("fiyat gir ")
-        <input type="text" placeholder="fiyat girin " id="txt10" onkeyup="hesapla('txt10', 'txt11', 'txt12');" />
+        <input type="text" placeholder="fiyat girin " id="txt10"/>
         &nbsp; &nbsp;
         @*@Html.LabelFor(x => x.YemekAdet)*@
-        <input type="number" placeholder="Adet girin" id="txt11" onkeyup="hesapla('txt10', 'txt11', 'txt12');" />
+        <input type="number" placeholder="Adet girin" id="txt11" oninput="hesapla('txt10', 'txt11', 'txt12');" />
         &nbsp; &nbsp;
         @*@Html.LabelFor(x => x.MenuAdet)*@
         @*toplam*@
@@ -87,9 +87,18 @@
 
 
         <script>
-            function setFiyat(txtId, dropdown) {
+            window.onload = function () {
+                setFiyat('txt1', 'txt2', 'txt3', document.getElementById('YemekID'));
+                setFiyat('txt4', 'txt5', 'txt6', document.getElementById('MenuID'));
+                setFiyat('txt7', 'txt8', 'txt9', document.getElementById('TatliID'));
+                setFiyat('txt10', 'txt11', 'txt12', document.getElementById('SalataID'));
+            };
+
+            function setFiyat(txtId1, txtId2, txtId3, dropdown) {
                 var fiyat = parseFloat(dropdown.options[dropdown.selectedIndex].innerText.match(/\((\d+)[₺$€]?\)/)[1]) || 0;
-                document.getElementById(txtId).value = fiyat.toFixed(2);
+                document.getElementById(txtId1).value = fiyat.toFixed(2);
+
+                hesapla(txtId1, txtId2, txtId3)
             }
 
             function hesapla(fiyat, adet, toplamAlanId) {
