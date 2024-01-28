@@ -8,6 +8,7 @@ using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -29,11 +30,12 @@ namespace tekrar_100ders.Controllers
 
         SalataManager sam = new SalataManager(new EFSalataDal());
 
-        [HttpGet]
+
+
+   
         public ActionResult Index()
         {
             var Satisvalues = sm.GetList();
-            ViewBag.Message = "Merhaba, Dünya!";
             return View(Satisvalues);
         }
 
@@ -99,6 +101,7 @@ namespace tekrar_100ders.Controllers
         {
             //tm.EFIcecekService(p);
             SatisValidator SatisValidator = new SatisValidator();
+
             ValidationResult results = SatisValidator.Validate(p);
 
 
@@ -131,7 +134,22 @@ namespace tekrar_100ders.Controllers
         }
 
 
+        // Get Metodu, Bu metod ne işe yarar: Geriye Yemek listesini döndürecek
+        [HttpGet]
+        public List<String> YemekList()
+        {
+            List<String> yemekler = new List<String>();  
 
+            List<Yemek> yemekListesi =  ym.GetList().ToList();
+
+            foreach (var yemek in yemekListesi)
+            {
+                //Debug.WriteLine($"Yemek ID: {yemek.YemekID}, Yemek Adı: {yemek.YemekName}, Fiyat: {yemek.Fiyat}");
+                yemekler.Add(yemek.YemekName);
+            }
+
+            return yemekler;
+        }
 
 
 
@@ -264,13 +282,4 @@ namespace tekrar_100ders.Controllers
 
     }
 }
-
-
-
-
-
-
-
-
-
 

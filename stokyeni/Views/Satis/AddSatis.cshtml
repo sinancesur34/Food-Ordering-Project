@@ -1,5 +1,4 @@
-﻿
-@model EntityLayer.Concrete.Satis
+﻿@model EntityLayer.Concrete.Satis
 @{
     ViewBag.Title = "AddSatis";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -17,7 +16,7 @@
         #sepetListesi { /*for id*/
             flex: 1;
             margin-left: 5px;
-            background-color: #2A61ED;
+            background-color: #2a2a2a;
             color: papayawhip;
         }
 
@@ -28,7 +27,7 @@
         }
 
         #sepetTablosu th, #sepetTablosu td {
-            border: 2px solid papayawhip;
+            border: 2px solid #000000;
             padding: 8px;
             text-align: left;
             color: papayawhip;
@@ -82,6 +81,48 @@
 
         function kaydet() {
             alert('Sipariş başarıyla kaydedildi!');
+            var sepetTablosu = document.getElementById('sepetTablosu');
+            var sepetSatirlari = sepetTablosu.getElementsByTagName('tr');
+
+            var siparisDetaylari = [];
+
+            for (var i = 1; i < sepetSatirlari.length; i++) {
+                var satirHucreleri = sepetSatirlari[i].getElementsByTagName('td');
+                var siparisDetay = {
+                    urunCesiti: satirHucreleri[0].innerText,
+                    adi: satirHucreleri[1].innerText,
+                    adet: satirHucreleri[2].innerText,
+                    fiyat: satirHucreleri[3].innerText
+                };
+                siparisDetaylari.push(siparisDetay);
+            }
+
+            alert(siparisDetaylari);
+
+            /* Sİpariş detayları istek atılacak post isteği olarak */
+
+           /* var url = '/Satis/AddSatis'; // Örnek bir URL, kendi projenize uygun bir URL'yi kullanmalısınız
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ siparisDetaylari: siparisDetaylari })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Başarılı bir şekilde cevap alındığında yapılacak işlemler
+                    console.log('İstek başarıyla tamamlandı:', data);
+                    alert('Sipariş başarıyla kaydedildi!');
+                })
+                .catch(error => {
+                    // Hata durumunda yapılacak işlemler
+                    console.error('İstek sırasında bir hata oluştu:', error);
+                    alert('Sipariş kaydedilirken bir hata oluştu!');
+                });
+
+                */
         }
 
         var kaydetButton = document.getElementById("kaydetButton");
@@ -104,8 +145,9 @@
             @Html.Label("Fiyat ")
             <input type="text" disabled placeholder="fiyat bilgisi " id="txt1" />
             &nbsp; &nbsp;
+
             @Html.Label("Adet ")
-            <input type="number" placeholder="Adet girin" id="txt2" oninput="hesapla('txt1', 'txt2', 'txt3');" />
+            <input type="number" placeholder="Adet girin" id="txt2" min="1" oninput="hesapla('txt1', 'txt2', 'txt3');" />
             &nbsp; &nbsp;
             @Html.Label("Toplam ")
             <input type="text" disabled id="txt3" />
@@ -124,7 +166,7 @@
             <input type="text" disabled placeholder="fiyat bilgisi " id="txt4" />
             &nbsp; &nbsp;
             @Html.Label("Adet ")
-            <input type="number" placeholder="Adet girin" id="txt5" oninput="hesapla('txt4', 'txt5', 'txt6');" />
+            <input type="number" placeholder="Adet girin" id="txt5" min="1" oninput="hesapla('txt4', 'txt5', 'txt6');" />
             &nbsp; &nbsp;
             @Html.Label("Toplam ")
             <input type="text" disabled id="txt6" />
@@ -143,7 +185,7 @@
             <input type="text" disabled placeholder="fiyat bilgisi " id="txt7" />
             &nbsp; &nbsp;
             @Html.Label("Adet ")
-            <input type="number" placeholder="Adet girin" id="txt8" oninput="hesapla('txt7', 'txt8', 'txt9');" />
+            <input type="number" placeholder="Adet girin" id="txt8" min="1" oninput="hesapla('txt7', 'txt8', 'txt9');" />
             &nbsp; &nbsp;
             @Html.Label("Toplam ")
             <input type="text" disabled id="txt9" />
@@ -161,7 +203,7 @@
             <input type="text" disabled placeholder="fiyat bilgisi " id="txt10" />
             &nbsp; &nbsp;
             @Html.Label("Adet ")
-            <input type="number" placeholder="Adet girin" id="txt11" oninput="hesapla('txt10', 'txt11', 'txt12');" />
+            <input type="number" placeholder="Adet girin" id="txt11" min="1" oninput="hesapla('txt10', 'txt11', 'txt12');" />
             &nbsp; &nbsp;
             @Html.Label("Toplam ")
             <input type="text" disabled id="txt12" />
@@ -175,7 +217,7 @@
             <br /><br />
 
             <br /><br />
-            <button type="button" id="kaydetButton" onclick="kaydet()">Kaydet</button>
+            <button id="kaydetButton" onclick="kaydet()">Kaydet</button>
         </div>
         <div id="sepetListesi" class="">
             <h3>Sepet</h3>
@@ -188,7 +230,7 @@
                         <th>Fiyat</th>
                     </tr>
                 </thead>
-                <tbody id="yemekListesi"></tbody>
+                @*<tbody id="yemekListesi"></tbody>*@
             </table>
         </div>
     </div>
