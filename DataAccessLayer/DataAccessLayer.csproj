@@ -64,14 +64,6 @@
     <Compile Include="EntityFramework\EFMenuDal.cs" />
     <Compile Include="EntityFramework\EFTatliDal.cs" />
     <Compile Include="EntityFramework\EFSatisDal.cs" />
-    <Compile Include="Migrations\202401241424516_mig4.cs" />
-    <Compile Include="Migrations\202401241424516_mig4.designer.cs">
-      <DependentUpon>202401241424516_mig4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202401271509106_mig5.cs" />
-    <Compile Include="Migrations\202401271509106_mig5.designer.cs">
-      <DependentUpon>202401271509106_mig5.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -84,14 +76,6 @@
       <Project>{70695fc1-9ca7-46aa-8cde-f55defc2ea84}</Project>
       <Name>EntityLayer</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202401241424516_mig4.resx">
-      <DependentUpon>202401241424516_mig4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202401271509106_mig5.resx">
-      <DependentUpon>202401271509106_mig5.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

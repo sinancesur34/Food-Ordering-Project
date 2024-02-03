@@ -24,7 +24,7 @@ namespace EntityLayer.Concrete
         public int SalataAdet { get; set; }
         public int MenuID { get; set; }
         public int MenuAdet { get; set; }
-        public int Toplam { get; set; }
+       
 
         public virtual Tatli Tatli { get; set; }
         public virtual Salata Salata { get; set; }

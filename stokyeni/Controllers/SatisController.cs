@@ -126,6 +126,25 @@ namespace tekrar_100ders.Controllers
             return View();
 
         }
+
+
+        [HttpPost]
+        public ActionResult AddSatis(List<SiparisDetay> siparisDetaylari)
+        {
+            try
+            {
+                // siparisDetaylari'yi veritabanına kaydedin
+                // Burada veritabanına kaydetme mantığınızı ekleyin
+
+                return Json(new { success = true, message = "Sipariş başarıyla kaydedildi!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Sipariş kaydedilirken hata oluştu: " + ex.Message });
+            }
+        }
+
+
         public ActionResult DeleteSatis(int id) //ayrı bir sayfa yapmayacagız indexte sil yapacagız.
         {
             var Satisvalue = sm.GetByID(id);
@@ -134,22 +153,22 @@ namespace tekrar_100ders.Controllers
         }
 
 
-        // Get Metodu, Bu metod ne işe yarar: Geriye Yemek listesini döndürecek
-        [HttpGet]
-        public List<String> YemekList()
-        {
-            List<String> yemekler = new List<String>();  
+        //// Get Metodu, Bu metod ne işe yarar: Geriye Yemek listesini döndürecek
+        //[HttpGet]
+        //public List<String> YemekList()
+        //{
+        //    List<String> yemekler = new List<String>();  
 
-            List<Yemek> yemekListesi =  ym.GetList().ToList();
+        //    List<Yemek> yemekListesi =  ym.GetList().ToList();
 
-            foreach (var yemek in yemekListesi)
-            {
-                //Debug.WriteLine($"Yemek ID: {yemek.YemekID}, Yemek Adı: {yemek.YemekName}, Fiyat: {yemek.Fiyat}");
-                yemekler.Add(yemek.YemekName);
-            }
+        //    foreach (var yemek in yemekListesi)
+        //    {
+        //        //Debug.WriteLine($"Yemek ID: {yemek.YemekID}, Yemek Adı: {yemek.YemekName}, Fiyat: {yemek.Fiyat}");
+        //        yemekler.Add(yemek.YemekName);
+        //    }
 
-            return yemekler;
-        }
+        //    return yemekler;
+        //}
 
 
 

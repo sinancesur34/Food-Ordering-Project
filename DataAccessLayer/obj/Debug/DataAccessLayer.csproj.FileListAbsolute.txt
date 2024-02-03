@@ -49,6 +49,3 @@ C:\Users\sinan\Desktop\Sıralama\stokyeni\DataAccessLayer\obj\Debug\DataAccessLa
 C:\Users\sinan\Desktop\Sıralama\stokyeni\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CopyComplete
 C:\Users\sinan\Desktop\Sıralama\stokyeni\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 C:\Users\sinan\Desktop\Sıralama\stokyeni\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
-C:\Users\sinan\Desktop\Sıralama\stokyeni\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.mig4.resources
-C:\Users\sinan\Desktop\Sıralama\stokyeni\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.GenerateResource.cache
-C:\Users\sinan\Desktop\Sıralama\stokyeni\DataAccessLayer\obj\Debug\DataAccessLayer.Migrations.mig5.resources

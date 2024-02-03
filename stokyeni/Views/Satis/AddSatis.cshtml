@@ -26,20 +26,26 @@
             margin-top: 10px;
         }
 
-        #sepetTablosu th, #sepetTablosu td {
-            border: 2px solid #000000;
-            padding: 8px;
-            text-align: left;
-            color: papayawhip;
-        }
 
+   
+        .gray-text {
+            color: #4cff00;
+        }
+ 
+
+            #sepetTablosu th, #sepetTablosu td {
+                border: 2px solid #000000;
+                padding: 8px;
+                text-align: left;
+                color: papayawhip;
+            }
     </style>
 
     <script>
         var selectedName;
 
         window.onload = function () {
-            setFiyat('txtYemek','txt1', 'txt2', 'txt3', document.getElementById('YemekID'));
+            setFiyat('txtYemek', 'txt1', 'txt2', 'txt3', document.getElementById('YemekID'));
             setFiyat('txtMenu', 'txt4', 'txt5', 'txt6', document.getElementById('MenuID'));
             setFiyat('txtTatli', 'txt7', 'txt8', 'txt9', document.getElementById('TatliID'));
             setFiyat('txtSalata', 'txt10', 'txt11', 'txt12', document.getElementById('SalataID'));
@@ -62,8 +68,13 @@
             var adetDeger = parseInt(document.getElementById(adet).value) || 0;
             var toplam = fiyatDeger * adetDeger;
             document.getElementById(toplamAlanId).value = toplam.toFixed(2) + "₺";
-            document.getElementById('txt13').value = (parseInt(document.getElementById('txt3').value) || 0) + (parseInt(document.getElementById('txt6').value) || 0) + (parseInt(document.getElementById('txt9').value) || 0) + (parseInt(document.getElementById('txt12').value) || 0) + "₺";
+
+
+            
         }
+        var totalAmount = 0;
+
+        // ... (your existing code)
 
         function sepeteEkle(type, name, adet, fiyat) {
             var sepetTable = document.getElementById('sepetTablosu');
@@ -72,18 +83,53 @@
             var cellAdi = row.insertCell(1);
             var cellAdet = row.insertCell(2);
             var cellFiyat = row.insertCell(3);
+            var cellRemove = row.insertCell(4);
 
             cellType.innerHTML = type;
             cellAdi.innerHTML = name;
             cellAdet.innerHTML = adet;
             cellFiyat.innerHTML = fiyat;
+
+            // Update the totalAmount variable
+            totalAmount += parseFloat(fiyat); // parseFloat ekledim
+
+            var removeButton = document.createElement('button');
+            removeButton.innerHTML = 'Sil';
+            removeButton.onclick = function () { removeItem(row, fiyat); };
+            cellRemove.appendChild(removeButton);
+
+            // Update the total amount display
+            updateTotalAmount();
         }
 
+        function removeItem(row, removedAmount) {
+            var rowIndex = row.rowIndex;
+            document.getElementById('sepetTablosu').deleteRow(rowIndex);
+
+            // Silinen miktarı çıkararak totalAmount değişkenini güncelle
+            totalAmount -= parseFloat(removedAmount);
+
+            // Toplam tutarı güncellemek için updateTotalAmount fonksiyonunu çağır
+            updateTotalAmount();
+        }
+
+        // ... (your existing code)
+
+        function updateTotalAmount() {
+            var totalAmountField = document.getElementById('txt13');
+            totalAmountField.value = totalAmount.toFixed(2) + "₺";
+        }
+
+        function updateTotalAmount() {
+            var totalAmountField = document.getElementById('txt13');
+            totalAmountField.value = totalAmount.toFixed(2) + "₺";
+        }
+
+        // ... (your existing code)
+
         function kaydet() {
-            alert('Sipariş başarıyla kaydedildi!');
             var sepetTablosu = document.getElementById('sepetTablosu');
             var sepetSatirlari = sepetTablosu.getElementsByTagName('tr');
-
             var siparisDetaylari = [];
 
             for (var i = 1; i < sepetSatirlari.length; i++) {
@@ -91,19 +137,14 @@
                 var siparisDetay = {
                     urunCesiti: satirHucreleri[0].innerText,
                     adi: satirHucreleri[1].innerText,
-                    adet: satirHucreleri[2].innerText,
-                    fiyat: satirHucreleri[3].innerText
+                    adet: parseInt(satirHucreleri[2].innerText),
+                    fiyat: parseFloat(satirHucreleri[3].innerText)
                 };
                 siparisDetaylari.push(siparisDetay);
             }
 
-            alert(siparisDetaylari);
-
-            /* Sİpariş detayları istek atılacak post isteği olarak */
-
-           /* var url = '/Satis/AddSatis'; // Örnek bir URL, kendi projenize uygun bir URL'yi kullanmalısınız
-
-            fetch(url, {
+            // Sipariş detaylarını sunucuya gönder
+            fetch('/Satis/AddSatis', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -112,17 +153,25 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    // Başarılı bir şekilde cevap alındığında yapılacak işlemler
-                    console.log('İstek başarıyla tamamlandı:', data);
-                    alert('Sipariş başarıyla kaydedildi!');
+                    console.log(data);
+                    if (data.success) {
+                        alert('Sipariş başarıyla kaydedildi!');
+                        // Sepeti temizle veya gerekli diğer işlemleri gerçekleştirin
+                    } else {
+                        alert('Sipariş kaydedilirken bir hata oluştu: ' + data.message);
+                    }
                 })
                 .catch(error => {
-                    // Hata durumunda yapılacak işlemler
                     console.error('İstek sırasında bir hata oluştu:', error);
                     alert('Sipariş kaydedilirken bir hata oluştu!');
                 });
+        }
 
-                */
+
+        function removeItem(row) {
+            var rowIndex = row.rowIndex;
+            document.getElementById('sepetTablosu').deleteRow(rowIndex);
+            // Toplamı yeniden hesapla veya başka gerekli işlemleri gerçekleştir
         }
 
         var kaydetButton = document.getElementById("kaydetButton");
@@ -194,7 +243,7 @@
             <button type="button" id="addTatli" onclick="sepeteEkle('Tatlı', document.getElementById('txtTatli').value,document.getElementById('txt8').value, document.getElementById('txt9').value)">Ekle</button>
             <br>  <br>
             <br>  <br>
-
+            <br><br />
             @Html.Label("Salata")
             @Html.DropDownListFor(x => x.SalataID, (List<SelectListItem>)@ViewBag.vlsa, new
             { @class = "form-control", @onchange = "setFiyat('txtSalata','txt10', 'txt11', 'txt12', this);" })
@@ -210,13 +259,13 @@
             <input type="hidden" disabled id="txtSalata" />
             &nbsp; &nbsp;
             <button type="button" id="addSalata" onclick="sepeteEkle('Salata', document.getElementById('txtSalata').value,document.getElementById('txt11').value, document.getElementById('txt12').value)">Ekle</button>
-            <br>  <br>
 
+            <br /><br />
             @Html.Label("Toplam")
             <input type="text" disabled id="txt13" />
-            <br /><br />
+            <br />
 
-            <br /><br />
+
             <button id="kaydetButton" onclick="kaydet()">Kaydet</button>
         </div>
         <div id="sepetListesi" class="">
@@ -228,10 +277,22 @@
                         <th>Adı</th>
                         <th>Adet</th>
                         <th>Fiyat</th>
+                        <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     </tr>
+              
                 </thead>
                 @*<tbody id="yemekListesi"></tbody>*@
             </table>
+
+
+            <script>
+                var kaydetButton = document.getElementById("kaydetButton");
+                kaydetButton.style.backgroundColor = "#000000";
+                kaydetButton.style.color = "white";
+                kaydetButton.style.border = "none";
+                kaydetButton.style.padding = "10px 20px";
+                kaydetButton.style.borderRadius = "5px";
+            </script>
         </div>
     </div>
 }
