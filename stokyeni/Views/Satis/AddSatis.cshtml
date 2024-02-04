@@ -42,6 +42,23 @@
     </style>
 
     <script>
+
+        function removeItem(row, fiyat) {
+            // Update the totalAmount variable
+            totalAmount -= parseFloat(fiyat);
+
+            // Update the total amount display
+            updateTotalAmount();
+
+            // Remove the row from the table
+            row.remove();
+        }
+
+        function updateTotalAmount() {
+            var totalAmountField = document.getElementById('txt13');
+            totalAmountField.value = totalAmount.toFixed(2) + "₺";
+        }
+
         var selectedName;
 
         window.onload = function () {
@@ -102,16 +119,7 @@
             updateTotalAmount();
         }
 
-        function removeItem(row, removedAmount) {
-            var rowIndex = row.rowIndex;
-            document.getElementById('sepetTablosu').deleteRow(rowIndex);
-
-            // Silinen miktarı çıkararak totalAmount değişkenini güncelle
-            totalAmount -= parseFloat(removedAmount);
-
-            // Toplam tutarı güncellemek için updateTotalAmount fonksiyonunu çağır
-            updateTotalAmount();
-        }
+   
 
         // ... (your existing code)
 
@@ -168,11 +176,7 @@
         }
 
 
-        function removeItem(row) {
-            var rowIndex = row.rowIndex;
-            document.getElementById('sepetTablosu').deleteRow(rowIndex);
-            // Toplamı yeniden hesapla veya başka gerekli işlemleri gerçekleştir
-        }
+       
 
         var kaydetButton = document.getElementById("kaydetButton");
         kaydetButton.style.backgroundColor = "#000000";
@@ -276,7 +280,7 @@
                         <th>Ürün Çeşiti</th>
                         <th>Adı</th>
                         <th>Adet</th>
-                        <th>Fiyat</th>
+                        <th>Fiyats</th>
                         <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     </tr>
               

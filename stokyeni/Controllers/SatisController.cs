@@ -128,21 +128,21 @@ namespace tekrar_100ders.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult AddSatis(List<SiparisDetay> siparisDetaylari)
-        {
-            try
-            {
-                // siparisDetaylari'yi veritabanına kaydedin
-                // Burada veritabanına kaydetme mantığınızı ekleyin
+        //[HttpPost]
+        //public ActionResult AddSatis(List<SiparisDetay> siparisDetaylari)
+        //{
+        //    try
+        //    {
+        //        // siparisDetaylari'yi veritabanına kaydedin
+        //        // Burada veritabanına kaydetme mantığınızı ekleyin
 
-                return Json(new { success = true, message = "Sipariş başarıyla kaydedildi!" });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = "Sipariş kaydedilirken hata oluştu: " + ex.Message });
-            }
-        }
+        //        return Json(new { success = true, message = "Sipariş başarıyla kaydedildi!" });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(new { success = false, message = "Sipariş kaydedilirken hata oluştu: " + ex.Message });
+        //    }
+        //}
 
 
         public ActionResult DeleteSatis(int id) //ayrı bir sayfa yapmayacagız indexte sil yapacagız.
