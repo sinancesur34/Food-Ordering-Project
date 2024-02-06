@@ -1,9 +1,44 @@
-<mxfile host="app.diagrams.net" modified="2024-02-06T19:19:00.222Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" version="23.1.1" etag="4i2wk31n3bwwBkcYNrVt" type="github">
+<mxfile host="app.diagrams.net" modified="2024-02-06T19:29:08.682Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" etag="ZdNhKkkG5vFSQsHIVdSk" version="23.1.1" type="github">
   <diagram name="Sayfa -1" id="fkjuZwAep9HwXAj_a8_N">
-    <mxGraphModel>
+    <mxGraphModel dx="977" dy="501" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="Bm2q66M2lrhtxcSUCz6n-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Bm2q66M2lrhtxcSUCz6n-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Bm2q66M2lrhtxcSUCz6n-1" value="MSSQL" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="150" y="110" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Bm2q66M2lrhtxcSUCz6n-8" value="id, toplam_tutar, siparis_zamani" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="120" width="360" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="Bm2q66M2lrhtxcSUCz6n-10" value="id, satis_id, urun_tipi, urun_adi, urun_adeti, tutar" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="290" width="360" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="Bm2q66M2lrhtxcSUCz6n-11" value="db.Satis" style="text;html=1;strokeColor=none;fillColor=default;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="430" y="120" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Bm2q66M2lrhtxcSUCz6n-12" value="" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="Bm2q66M2lrhtxcSUCz6n-10" target="Bm2q66M2lrhtxcSUCz6n-8">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="470" y="330" as="sourcePoint" />
+            <mxPoint x="570" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Bm2q66M2lrhtxcSUCz6n-13" value="db.SubSatis" style="text;html=1;strokeColor=none;fillColor=default;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="430" y="290" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Bm2q66M2lrhtxcSUCz6n-14" value="db.Satis.id" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="384" y="250" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Bm2q66M2lrhtxcSUCz6n-16" value="db.SubSatis.satis_id" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="500" y="250" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Bm2q66M2lrhtxcSUCz6n-17" value="&lt;b&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;Örnek veri&lt;/font&gt;&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="850" y="80" width="170" height="30" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
